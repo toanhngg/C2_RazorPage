@@ -1,0 +1,68 @@
+﻿@page
+@model C2_RazorPage.Pages.Movies.Director_MovieModel
+@{
+}
+<a href="./Add">Add Movie</a>
+<h1>List of movies</h1>
+<div class="d-flex">
+    <div class="flex">
+        <div><h4>Director</h4></div>
+        @foreach(var director in Model.directors)
+        {
+        <div style="width : 150px;">
+                @if (director.Id == Model.directorID)
+                {
+                    <a href="./Director_Movie?id=@director.Id" style="font-size:25px;">
+                        @director.FullName
+                    </a>
+                }
+                else
+                {
+                    <a href="./Director_Movie?id=@director.Id">
+                        @director.FullName
+                    </a>
+                }
+           
+            </div>
+            
+        }
+    </div>
+
+    <div style="margin-left:200px">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Title</td>
+                    <td>ReleaseDate</td>
+                    <td>Description</td>
+                    <td>Language</td>
+                    <td>Director</td>
+                    <td>Producer</td>
+                    <td style="width: 200px;">Star</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var movie in Model.movies)
+                {
+                    <tr>
+                        <td>@movie.Title</td>
+                        <td>@movie.ReleaseDate</td>
+                        <td>@movie.Description</td>
+                        <td>@movie.Language</td>
+                        <td>@movie.Director.FullName</td>
+                        <td>@movie.Producer.Name</td>
+                        <td style="width: 200px;">
+                        @foreach(var star in movie.Stars){  
+                                @star.FullName <br />
+                        }
+                        </td>
+                        <td> <a href="./Director_Movie?deleteId=@movie.Id&&id=@movie.Director.Id">Delete</a></td>
+                    </tr>
+                }
+                
+            </tbody>
+
+        </table>
+    </div>
+</div>
