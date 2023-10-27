@@ -1,9 +1,17 @@
 ﻿@page
 @model C2_RazorPage.Pages.Movies.Director_MovieModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
 }
+
 <a href="./Add">Add Movie</a>
 <h1>List of movies</h1>
+<form method="post">
+    <input type="text" name="search" value="@Model.searchtext"/>
+    <input type="hidden" name="director" value="@Model.directorID" />
+    <button type="submit">Search </button>
+</form>
 <div class="d-flex">
     <div class="flex">
         <div><h4>Director</h4></div>

@@ -16,6 +16,7 @@ namespace C2_RazorPage.Pages.Movies
         public List<Director> directors;
         public List<Movie> movies;
         public int? directorID;
+        public String searchtext;
         public void OnGet(int? id, int? deleteId)
         {
             try
@@ -69,6 +70,33 @@ namespace C2_RazorPage.Pages.Movies
             }
         }
 
+        public IActionResult OnPost()
+        {
+            try
+            {
+                directors = context.Directors.ToList();
+                var search = Request.Form["search"];
+                var idFilterSearch = int.Parse(Request.Form["director"]);
 
+                searchtext = search;
+
+                if (search.ToString() != "")
+                {                   
+                    movies = context.Movies.Include(x => x.Director).Include(x => x.Producer).Where(x => x.Title.Contains(search) && x.DirectorId == idFilterSearch).ToList();
+                }
+                else
+                {
+                    movies = context.Movies.Include(x => x.Producer).Include(x => x.Stars).Where(x => x.Director.Id == idFilterSearch).ToList();
+
+                }
+
+                return Page();
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
+        }
     }
 }
