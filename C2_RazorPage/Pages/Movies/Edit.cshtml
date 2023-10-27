@@ -1,0 +1,25 @@
+﻿@page
+@model C2_RazorPage.Pages.Movies.EditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+<h1>Edit movie</h1>
+<div>Title</div>
+<form method="post">
+    <input type="text" asp-for="movie.Title" />
+    <div>Release Date</div>
+    <input type="date" asp-for="movie.ReleaseDate" />
+    <div>Description</div>
+    <input type="text" asp-for="movie.Description" />
+    <div>Language</div>
+    <input type="text" asp-for="movie.Language" />
+    <div>Director</div>
+    <select asp-for="movie.DirectorId" class="form-control" asp-items="ViewBag.Directors">
+    </select>
+    <div>Producer</div>
+    <select asp-for="movie.ProducerId" class="form-control" asp-items="ViewBag.Producers">
+    </select>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>

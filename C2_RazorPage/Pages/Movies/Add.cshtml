@@ -1,0 +1,36 @@
+﻿@page
+@model C2_RazorPage.Pages.Movies.AddModel
+@{
+}
+<h1>Add movie</h1>
+<div>Title</div>
+<form method="post">
+<input type="text" name="title" />
+<div>Release Date</div>
+<input type="date" name="date" />
+<div>Description</div>
+<input type="text" name="description" />
+<div>Language</div>
+<input type="text" name="language" />
+<div>Director</div>
+<select name="idDirector">
+        @foreach(var item in @Model.directors)
+        {
+            <option value="@item.Id">
+                @item.FullName
+            </option>
+        }
+    </select>
+<div>Producer</div>
+    <select name="idProducer">
+        @foreach (var item in @Model.producers)
+        {
+            <option value="@item.Id">
+                @item.Name
+            </option>    
+        }
+    </select>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
