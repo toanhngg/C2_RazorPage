@@ -65,8 +65,12 @@
                                 @star.FullName <br />
                         }
                         </td>
-                        <td> <a href="./Director_Movie?deleteId=@movie.Id&&id=@movie.Director.Id">Delete</a>
-                            <a href="./Edit?idEdit=@movie.Id">Edit</a>
+                        @*  <td> <a href="./Director_Movie?deleteId=@movie.Id&&id=@movie.Director.Id">Delete</a>
+                             <a href="./Edit?idEdit=@movie.Id">Edit</a>
+                         </td> *@
+                        <td>
+                            <a href="javascript: void(0)" onclick="onDelete(@movie.Id)">Delete</a>
+                          @* c  <a href="./Edit?idEdit=@movie.Id">Edit</a> *@
                         </td>
                     </tr>
                 }
@@ -75,4 +79,21 @@
 
         </table>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/movieHub").build();
+        connection.start();
+     
+        function onDelete(movieId) {
+           //s console.log(connection);
+
+         connection.invoke("DeleteMovie", movieId);
+// hàm này để gọi những function trong Hub
+           alert(movieId);
+        }
+        connection.on("LoadMovie", () => {
+            location.reload();
+         });
+
+    </script>
 </div>

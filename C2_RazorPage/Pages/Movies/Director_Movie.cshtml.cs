@@ -22,35 +22,35 @@ namespace C2_RazorPage.Pages.Movies
             try
             {
           
-                if (deleteId != null)
-                {
-                    var movie = context.Movies.Include(x => x.Stars).Include(x => x.Genres).SingleOrDefault(x => x.Id == deleteId);
-                    foreach (var star in context.Stars.ToList())
-                    {
-                        movie.Stars.Remove(star);
-                    }
-                    foreach (var star in context.Stars)
-                    {
-                        foreach (var moviedelete in star.Movies.ToList())
-                        {
-                            star.Movies.Remove(moviedelete);
-                        }
-                    }
+                //if (deleteId != null)
+                //{
+                //    var movie = context.Movies.Include(x => x.Stars).Include(x => x.Genres).SingleOrDefault(x => x.Id == deleteId);
+                //    foreach (var star in context.Stars.ToList())
+                //    {
+                //        movie.Stars.Remove(star);
+                //    }
+                //    foreach (var star in context.Stars)
+                //    {
+                //        foreach (var moviedelete in star.Movies.ToList())
+                //        {
+                //            star.Movies.Remove(moviedelete);
+                //        }
+                //    }
 
-                    foreach (var genre in context.Genres.ToList())
-                    {
-                        movie.Genres.Remove(genre);
-                    }
-                    foreach (var genre in context.Genres)
-                    {
-                        foreach (var moviedelete in genre.Movies.ToList())
-                        {
-                            genre.Movies.Remove(moviedelete);
-                        }
-                    }
-                    context.Movies.Remove(movie);
-                    context.SaveChanges();
-                }
+                //    foreach (var genre in context.Genres.ToList())
+                //    {
+                //        movie.Genres.Remove(genre);
+                //    }
+                //    foreach (var genre in context.Genres)
+                //    {
+                //        foreach (var moviedelete in genre.Movies.ToList())
+                //        {
+                //            genre.Movies.Remove(moviedelete);
+                //        }
+                //    }
+                //    context.Movies.Remove(movie);
+                //    context.SaveChanges();
+                //}
                 if (id == null)
                 {
                     movies = context.Movies.Include(x => x.Producer).Include(x => x.Stars).ToList();
@@ -62,7 +62,7 @@ namespace C2_RazorPage.Pages.Movies
                 }
                 directors = context.Directors.ToList();
 
-            }
+            } 
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
