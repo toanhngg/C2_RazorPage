@@ -28,7 +28,7 @@ namespace C2_RazorPage.Hubs
                     }
                 }
 
-                foreach (var genre in _context.Genres.ToList())
+                foreach (var genre  in _context.Genres.ToList())
                 {
                     movie.Genres.Remove(genre);
                 }
@@ -43,7 +43,7 @@ namespace C2_RazorPage.Hubs
                 _context.SaveChanges();
 
             }
-            await Clients.All.SendAsync("LoadMovie");
+            await Clients.All.SendAsync("LoadMovie", deleteId);
             // sẽ gửi về method đó là method LoadMovie
             //  await Clients.All.SendAsync("LoadMovie", có thể truyền param trả về như  deleteId);
             

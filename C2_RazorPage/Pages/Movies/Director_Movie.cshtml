@@ -53,9 +53,11 @@
             <tbody>
                 @foreach (var movie in Model.movies)
                 {
-                    <tr>
+                    <tr id="@movie.Id">
                         <td>@movie.Title</td>
                         <td>@movie.ReleaseDate</td>
+                        <a href="d:\prn221\c2_razorpage\c2_razorpage\pages\movies\director_movie.cshtml.cs">d:\prn221\c2_razorpage\c2_razorpage\pages\movies\director_movie.cshtml.cs</a>
+                        <a href="d:\prn221\c2_razorpage\c2_razorpage\pages\movies\director_movie.cshtml">d:\prn221\c2_razorpage\c2_razorpage\pages\movies\director_movie.cshtml</a>
                         <td>@movie.Description</td>
                         <td>@movie.Language</td>
                         <td>@movie.Director.FullName</td>
@@ -89,10 +91,14 @@
 
          connection.invoke("DeleteMovie", movieId);
 // hàm này để gọi những function trong Hub
-           alert(movieId);
+          // alert(movieId);
         }
-        connection.on("LoadMovie", () => {
-            location.reload();
+        connection.on("LoadMovie", (deleteId) => {
+            var element = document.getElementById(deleteId);
+            console.log(element);
+                // Kiểm tra xem phần tử có tồn tại không
+                element.remove(); // Xóa phần tử
+                       //  location.reload();
          });
 
     </script>

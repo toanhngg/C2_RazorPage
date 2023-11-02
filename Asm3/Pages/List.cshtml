@@ -1,0 +1,62 @@
+﻿@page
+@model Asm3.Pages.ListModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+<h1>Customer Manager</h1>
+<form method="get">
+    <div class="d-flex">
+        <p class="me-5">Discount rate</p>
+        <input type="text" name="discount" value="@Model.DiscountSearch" />
+    </div>
+    <div>
+        <button type="submit" class="btn btn-secondary">Search</button>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<h3>List of Customer count: @Model.customers.Count</h3>
+<form method="post" enctype='multipart/form-data'>
+    <div class="d-flex">
+        <input type="file" name="inputfile" />
+        <button type="submit" class="btn btn-secondary me-1" name="submitType" value="json">Add Customer in Json File</button>
+        <button type="submit" class="btn btn-secondary" name="submitType" value="xml">Add Customer in XML File</button>
+    </div>
+</form>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>CustomerName</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>DiscountRate</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.customers)
+        {
+            <tr>
+                <td>@customer.CustomerName</td>
+                <td>@customer.Address</td>
+                <td>@customer.Phone</td>
+                <td>@customer.DiscountRate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/addHub").build();
+    connection.start();
+    connection.on("Customer", () => {
+         location.reload();
+    });
+
+</script>
