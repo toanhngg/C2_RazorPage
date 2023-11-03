@@ -25,15 +25,27 @@ namespace Asm3.Pages
     public List<Customer> customers = new List<Customer>();
         public int DiscountSearch { get; set; }
 
-        public void OnGet([FromQuery] int discount)
+        public void OnGet([FromQuery] int discount, String? deleteId)
         {
+            if (!string.IsNullOrEmpty(deleteId))
+            {
+                var cus = context.Customers.SingleOrDefault(x => x.CustomerId.Equals(deleteId));
+                if (cus != null)
+                {
+                    context.Remove(cus);
+                    context.SaveChanges();
+                }
+                customers = context.Customers.ToList();
+            }
 
             DiscountSearch = discount;
             if (discount > 0 && discount <= 60)
             {
+            
+       
                 customers = context.Customers
-                    .Where(x => x.DiscountRate <= discount)
-                    .ToList();
+                .Where(x => x.DiscountRate <= discount)
+                .ToList();
             }
             else
             {
@@ -46,14 +58,15 @@ namespace Asm3.Pages
         {
 
             string submitType = Request.Form["submitType"];
+            string fileContent = "";
+            using (var reader = new StreamReader(inputfile.OpenReadStream()))
+            {
+                fileContent = reader.ReadToEnd();
+            }
 
             if (submitType == "json")
             {
-                string fileContent = "";
-                using (var reader = new StreamReader(inputfile.OpenReadStream()))
-                {
-                    fileContent = reader.ReadToEnd();
-                }
+           
                 if (!string.IsNullOrEmpty(fileContent))
                 {
                     var listCustomer = JsonConvert.DeserializeObject<List<Customer>>(fileContent);
@@ -67,20 +80,15 @@ namespace Asm3.Pages
             }
             else if (submitType == "xml")
             {
-                    string xmlFileContent = "";
-                    using (var reader = new StreamReader(inputfile.OpenReadStream()))
-                    {
-                        xmlFileContent = reader.ReadToEnd();
-                    }
 
-                    if (!string.IsNullOrEmpty(xmlFileContent))
+                    if (!string.IsNullOrEmpty(fileContent))
                     {
-                        XDocument xmlDoc = XDocument.Parse(xmlFileContent);
+                        XDocument xmlDoc = XDocument.Parse(fileContent);
                         var customers = xmlDoc.Descendants("Customer").Select(c =>
                         {
                             return new Customer
                             {
-                                CustomerId = (string)c.Element("CustomerID"),
+                                CustomerId = (string)c.Element("CustomerId"),
                                 CustomerName = (string)c.Element("CustomerName"),
                                 Address = (string)c.Element("Address"),
                                 Phone = (string)c.Element("Phone"),

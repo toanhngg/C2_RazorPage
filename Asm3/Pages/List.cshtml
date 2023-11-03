@@ -4,6 +4,8 @@
 @{
 }
 <h1>Customer Manager</h1>
+@* <a href="./Add">Add Customer</a> *@
+
 <form method="get">
     <div class="d-flex">
         <p class="me-5">Discount rate</p>
@@ -29,6 +31,7 @@
         <button type="submit" class="btn btn-secondary" name="submitType" value="xml">Add Customer in XML File</button>
     </div>
 </form>
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -47,6 +50,11 @@
                 <td>@customer.Address</td>
                 <td>@customer.Phone</td>
                 <td>@customer.DiscountRate</td>
+                <td>
+                    <a href="./List?deleteId=@customer.CustomerId">Delete</a>
+                    <a href="./Edit?idEdit=@customer.CustomerId">Edit</a>
+                    <a href="./Detail?idDetail=@customer.CustomerId">Detail</a>
+                </td>
             </tr>
         }
     </tbody>

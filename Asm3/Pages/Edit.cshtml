@@ -1,0 +1,21 @@
+﻿@page
+@model Asm3.Pages.EditModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+}
+<h1>Edit customer</h1>
+<form method="post">
+    <input type="hidden" asp-for="customer.CustomerId" />
+    <div>CustomerName</div>
+    <input type="text" asp-for="customer.CustomerName" />
+    <div>Address</div>
+    <input type="text" asp-for="customer.Address" />
+    <div>Phone</div>
+    <input type="text" asp-for="customer.Phone" />
+    <div>DiscountRate</div>
+    <input type="number" asp-for="customer.DiscountRate" />
+  
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>

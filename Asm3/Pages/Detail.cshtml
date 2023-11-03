@@ -1,0 +1,24 @@
+﻿@page
+@model Asm3.Pages.DetailModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+}
+<h1>Detail customer</h1>
+    <div>
+        <label>Customer Name</label>
+    @Model.customer.CustomerName
+    </div>
+    <div>
+        <label>Address</label>
+    @Model.customer.Address
+    </div>
+    <div>
+        <label>Phone</label>
+    @Model.customer.Phone
+    </div>
+    <div>
+        <label>DiscountRate</label>
+    @Model.customer.DiscountRate
+    </div>
+
